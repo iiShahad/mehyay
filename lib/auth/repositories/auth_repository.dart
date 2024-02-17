@@ -41,7 +41,6 @@ class AuthRepository {
       required String phoneNumber,
       required String name}) async {
     try {
-      print("$email, $password, $phoneNumber, $name");
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       UserModel user = UserModel(
