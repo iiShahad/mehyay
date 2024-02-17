@@ -22,7 +22,8 @@ class AuthRepository {
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   //sign in
-  FutureEither<UserModel> signIn(String email, String password) async {
+  FutureEither<UserModel> signIn(
+      {required String email, required String password}) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
@@ -35,7 +36,10 @@ class AuthRepository {
 
   //sign up
   FutureEither<UserModel> signUp(
-      String email, String password, String phoneNumber, String name) async {
+      {required String email,
+      required String password,
+      required String phoneNumber,
+      required String name}) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
