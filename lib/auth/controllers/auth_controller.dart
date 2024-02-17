@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mehyay/auth/models/user_model.dart';
@@ -11,6 +12,11 @@ final userProvider = StateProvider<UserModel?>((ref) {
 final authControllerProvider = Provider<AuthController>((ref) {
   return AuthController(
       authRepository: ref.watch(authRepositoryProvider), ref: ref);
+});
+
+final authStateChangeProvider = StreamProvider((ref) {
+  final authController = ref.watch(authControllerProvider);
+  return authController.authStateChange;
 });
 
 class AuthController {
@@ -45,6 +51,12 @@ class AuthController {
 
   void nextPage(int pageIndex) {
     authPageController.jumpToPage(pageIndex);
+  }
+
+  Stream<User?> get authStateChange => _authRepository.authStateChanges;
+
+  Future<UserModel> getUserData(String uid) async {
+    return await _authRepository.getUserData(uid);
   }
 
   void signUp(BuildContext context) async {
