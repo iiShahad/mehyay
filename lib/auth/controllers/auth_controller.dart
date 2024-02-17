@@ -48,19 +48,22 @@ class AuthController {
   }
 
   void signUp(BuildContext context) async {
-    if (!formKey.currentState!.validate()) return;
-    await loading.show(context);
+    //TODO: validate form
+    // if (!formKey.currentState!.validate()) return;
+    loading.show(context);
     final response = await _authRepository.signUp(
       email: signUpEmailController.text,
       password: signUpPasswordController.text,
       name: signUpUsernameController.text,
-      phoneNumber: signUpPhoneNumberController.text,
+      phoneNumber: "0501319449",
     );
     response.fold(
       (l) {
+        print(l.message);
         //TODO: show error
       },
       (r) {
+        print(r);
         _ref.read(userProvider.notifier).update((state) => r);
         loading.hide(context);
       },

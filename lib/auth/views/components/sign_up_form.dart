@@ -22,18 +22,24 @@ class SignUpFrom extends ConsumerWidget {
         const SizedBox(
           height: Palette.lInsets,
         ),
-        const Form(
+        Form(
           child: Column(
             children: [
               CustomTextField(
+                controller:
+                    ref.watch(authControllerProvider).signUpEmailController,
                 label: "البريد الإلكتروني",
                 hint: "name@mail.com",
               ),
               CustomTextField(
+                controller:
+                    ref.watch(authControllerProvider).signUpUsernameController,
                 label: "اسم المستخدم",
                 hint: "علي عبدالرحمن",
               ),
               CustomTextField(
+                controller:
+                    ref.watch(authControllerProvider).signUpPasswordController,
                 label: "كلمة المرور",
                 hint: "*******",
               ),

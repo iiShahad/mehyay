@@ -26,37 +26,40 @@ class AuthScreen extends ConsumerWidget {
           ),
         ),
         SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: Palette.lInsets,
-              ),
-              Text('محياي', style: Palette.t1b.copyWith(color: Palette.white)),
-              Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.8,
-                margin: const EdgeInsets.all(Palette.lInsets),
-                decoration: const BoxDecoration(
-                  boxShadow: Palette.boxShadow,
-                  color: Palette.background,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(Palette.lBorderRadius),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: Palette.lInsets,
+                ),
+                Text('محياي',
+                    style: Palette.t1b.copyWith(color: Palette.white)),
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  margin: const EdgeInsets.all(Palette.lInsets),
+                  decoration: const BoxDecoration(
+                    boxShadow: Palette.boxShadow,
+                    color: Palette.background,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(Palette.lBorderRadius),
+                    ),
+                  ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: Palette.mInsets),
+                    child: PageView(
+                      controller:
+                          ref.watch(authControllerProvider).authPageController,
+                      children: const [
+                        SignInForm(),
+                        SignUpFrom(),
+                      ],
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: Palette.mInsets),
-                  child: PageView(
-                    controller:
-                        ref.watch(authControllerProvider).authPageController,
-                    children: const [
-                      SignInForm(),
-                      SignUpFrom(),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

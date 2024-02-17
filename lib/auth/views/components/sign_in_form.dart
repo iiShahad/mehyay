@@ -22,14 +22,18 @@ class SignInForm extends ConsumerWidget {
         const SizedBox(
           height: Palette.lInsets,
         ),
-        const Form(
+        Form(
           child: Column(
             children: [
               CustomTextField(
+                controller:
+                    ref.watch(authControllerProvider).signInEmailController,
                 label: "البريد الإلكتروني",
                 hint: "name@mail.com",
               ),
               CustomTextField(
+                controller:
+                    ref.watch(authControllerProvider).signInPasswordController,
                 label: "كلمة المرور",
                 hint: "*******",
               ),

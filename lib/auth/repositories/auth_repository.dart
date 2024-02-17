@@ -16,7 +16,7 @@ class AuthRepository {
   final _firebaseAuth;
   AuthRepository({required Ref ref, required FirebaseAuth firebaseAuth})
       : _ref = ref,
-        _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+        _firebaseAuth = firebaseAuth;
 
   //auth state changes
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
@@ -41,6 +41,7 @@ class AuthRepository {
       required String phoneNumber,
       required String name}) async {
     try {
+      print("$email, $password, $phoneNumber, $name");
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       UserModel user = UserModel(

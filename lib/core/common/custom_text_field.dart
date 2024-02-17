@@ -23,6 +23,7 @@ class CustomTextField extends StatelessWidget {
             height: Palette.sInsets,
           ),
           TextFormField(
+            controller: controller,
             decoration: InputDecoration(
               hintText: hint,
             ),
