@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mehyay/core/theme/palette.dart';
+import 'package:mehyay/home/controllers/speech_to_text_controller.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
@@ -22,7 +24,10 @@ class HomeView extends StatelessWidget {
         ),
         child: Center(
           child: IconButton(
-              onPressed: () {}, icon: const Icon(Icons.mic, size: 70)),
+              onPressed: () {
+                ref.read(speechToTextControllerProvider).listen();
+              },
+              icon: const Icon(Icons.mic, size: 70)),
         ),
       )),
     );
