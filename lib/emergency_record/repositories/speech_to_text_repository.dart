@@ -4,16 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mehyay/emergency_record/repositories/emergency_record_repository.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-final speechToTextControllerProvider = Provider<SpeechToTextController>((ref) {
-  return SpeechToTextController(ref: ref);
+final speechToTextRepositoryProvider = Provider<SpeechToTextRepository>((ref) {
+  return SpeechToTextRepository(ref: ref);
 });
 
-class SpeechToTextController {
+class SpeechToTextRepository {
   final Ref _ref;
-  SpeechToTextController({required Ref ref}) : _ref = ref;
+  SpeechToTextRepository({required Ref ref}) : _ref = ref;
   final _speechToText = SpeechToText();
   bool isListening = false;
-  String text = 'Press the button and start speaking';
+  String text = '';
 
   Future<void> initialize() async {
     await _speechToText.initialize(
@@ -29,7 +29,7 @@ class SpeechToTextController {
         listenFor: const Duration(minutes: 30),
         localeId: 'ar-SA',
         onResult: (result) {
-          text = result.recognizedWords;
+          text = "$text ${result.recognizedWords}";
           if (result.finalResult) {
             stopListening();
           }

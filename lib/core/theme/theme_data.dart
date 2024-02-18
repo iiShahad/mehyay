@@ -30,7 +30,7 @@ final themeData = ThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Palette.mBorderRadius),
         ),
-        textStyle: Palette.label,
+        textStyle: Palette.labelb,
         foregroundColor: Palette.white),
   ),
 );

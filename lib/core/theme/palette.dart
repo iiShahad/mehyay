@@ -84,4 +84,9 @@ class Palette {
     fontWeight: FontWeight.normal,
     color: text,
   );
+  static const labelb = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: text,
+  );
 }
