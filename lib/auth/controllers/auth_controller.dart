@@ -93,4 +93,8 @@ class AuthController {
       _ref.read(userProvider.notifier).update((state) => r);
     });
   }
+
+  void signOut() async {
+    await _authRepository.signOut();
+  }
 }

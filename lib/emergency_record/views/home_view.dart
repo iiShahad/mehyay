@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
+import 'package:mehyay/auth/controllers/auth_controller.dart';
+import 'package:mehyay/core/constants/assets_constants.dart';
 import 'package:mehyay/core/theme/palette.dart';
 import 'package:mehyay/emergency_record/controllers/speech_to_text_controller.dart';
-import 'package:mehyay/emergency_record/repositories/emergency_record_repository.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -12,36 +13,75 @@ class HomeView extends ConsumerStatefulWidget {
   ConsumerState<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends ConsumerState<HomeView> {
+class _HomeViewState extends ConsumerState<HomeView>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
   @override
   void initState() {
     ref.read(speechToTextControllerProvider).initialize();
+    _controller = AnimationController(vsync: this);
     super.initState();
+  }
+
+  void toggleAnimation() {
+    if (_controller.isAnimating) {
+      _controller.stop();
+      _controller.reset();
+      ref.read(speechToTextControllerProvider).stopListening();
+    } else {
+      _controller.repeat();
+      ref.read(speechToTextControllerProvider).listen();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("الإعلان عن حالة طوارئ"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref.read(authControllerProvider).signOut();
+            },
+            icon: const Icon(
+              Icons.logout,
+              color: Palette.red,
+            ),
+          )
+        ],
       ),
-      body: Center(
-          child: Container(
-        height: MediaQuery.of(context).size.height * 0.3,
-        margin: const EdgeInsets.all(Palette.lInsets),
-        decoration: BoxDecoration(
-          boxShadow: Palette.boxShadow,
-          color: Palette.background,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: IconButton(
-              onPressed: () {
-                ref.read(speechToTextControllerProvider).listen();
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            width: 400,
+            height: 400,
+            child: GestureDetector(
+              onTap: () {
+                toggleAnimation();
               },
-              icon: const Icon(Icons.mic, size: 70)),
-        ),
-      )),
+              child: LottieBuilder.asset(
+                animate: false,
+                fit: BoxFit.contain,
+                AssetsConstants.micPulse,
+                controller: _controller,
+                onLoaded: (composition) {
+                  _controller.duration = composition.duration;
+                },
+              ),
+            ),
+          ),
+          const Align(
+            alignment: Alignment.center,
+            child: Icon(
+              Icons.mic,
+              size: 70,
+              color: Palette.white,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
