@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mehyay/auth/controllers/auth_controller.dart';
 import 'package:mehyay/auth/views/components/sign_in_form.dart';
 import 'package:mehyay/auth/views/components/sign_up_form.dart';
-import 'package:mehyay/core/common/custom_text_field.dart';
 import 'package:mehyay/core/theme/palette.dart';
 
 class AuthScreen extends ConsumerWidget {

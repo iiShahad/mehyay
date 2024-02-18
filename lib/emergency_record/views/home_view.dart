@@ -19,6 +19,13 @@ class _HomeViewState extends ConsumerState<HomeView>
   @override
   void initState() {
     ref.read(emergencyRecordStateControllerProvider).init(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    ref.read(emergencyRecordStateControllerProvider).dispose();
+    super.dispose();
   }
 
   @override
@@ -81,7 +88,11 @@ class _HomeViewState extends ConsumerState<HomeView>
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                ref
+                    .read(emergencyRecordStateControllerProvider)
+                    .createReport(context);
+              },
               child: const Text("إنشاء تقرير طوارئ"),
             )
           ],

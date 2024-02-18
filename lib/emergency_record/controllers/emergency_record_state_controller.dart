@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mehyay/core/common/loading_dialog.dart';
 import 'package:mehyay/emergency_record/repositories/speech_to_text_repository.dart';
 
 final emergencyRecordStateControllerProvider =
@@ -11,7 +12,7 @@ class EmergencyRecordStateController {
   final Ref _ref;
   EmergencyRecordStateController({required Ref ref}) : _ref = ref;
   late AnimationController _controller;
-
+  final loading = LoadingDialog();
   AnimationController get controller => _controller;
 
   void init(TickerProvider vsync) {
@@ -31,6 +32,10 @@ class EmergencyRecordStateController {
       _controller.repeat();
       _ref.read(speechToTextRepositoryProvider).listen();
     }
+  }
+
+  void createReport(BuildContext context) {
+    loading.show(context);
   }
 
   void dispose() {
